@@ -1,6 +1,5 @@
 from django.test import TestCase, Client, override_settings
 from django.contrib.auth import get_user_model
-from django.core.files.images import ImageFile
 
 from yatube import settings
 from .models import Post, Group
