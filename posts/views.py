@@ -9,6 +9,7 @@ from .models import Group, Post, Comment, Follow
 
 User = get_user_model()
 
+
 def index(request):
     post_list = Post.objects.order_by("-pub_date").all()
     paginator = Paginator(post_list, 10)
@@ -89,7 +90,7 @@ def post_edit(request, username, post_id):
     author = get_object_or_404(User, username=username)
     post = get_object_or_404(Post, id=post_id)
     if request.user != author:
-        return redirect("post", username=username, post_id=post_id)    
+        return redirect("post", username=username, post_id=post_id)
     form = PostForm(request.POST or None, files=request.FILES or None, instance=post)
     if request.method == 'POST':
         if form.is_valid():
@@ -115,16 +116,17 @@ def profile_follow(request, username):
     user = request.user
     author = get_object_or_404(User, username=username)
     follow = Follow.objects.filter(user=request.user, author=author).first()
-    if user != author and follow == None:
+    if user != author and follow is None:
         Follow.objects.create(user=user, author=author)
     return redirect("profile", username=username)
+
 
 @login_required
 def profile_unfollow(request, username):
     user = request.user
     author = get_object_or_404(User, username=username)
     follow = Follow.objects.filter(user=user, author=author).first()
-    if follow != None:
+    if follow:
         follow.delete()
     return redirect("profile", username=username)
 
@@ -135,4 +137,3 @@ def page_not_found(request, exception):
 
 def server_error(request):
         return render(request, "misc/500.html", status=500)
-

@@ -6,6 +6,7 @@ from .models import Post, Group
 
 User = get_user_model()
 
+
 @override_settings(CACHES=settings.TEST_CACHES)
 class PostTest(TestCase):
     def setUp(self):
@@ -63,6 +64,7 @@ class PostTest(TestCase):
         response = self.client.get("/not/exist/page/")
         self.assertEqual(response.status_code, 404)
 
+
 @override_settings(CACHES=settings.TEST_CACHES)
 class ImageTest(TestCase):
     def setUp(self):
@@ -109,7 +111,7 @@ class CacheTest(TestCase):
         self.client.login(username='user_follower', password='12345')
         self.post = Post.objects.create(author=self.user, text="Просто текст")
         self.client.get('/')
-    
+
     def test_index_cache(self):
         self.post.text = 'изменённый текст'
         self.post.save()
