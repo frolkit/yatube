@@ -98,6 +98,25 @@ class ImageTest(TestCase):
                 follow=True)
         self.assertContains(response, 'Upload a valid image.')
 
+
+class CacheTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(
+            username='test_user',
+            email='test_user@example.com',
+            password="12345")
+        self.client.login(username='user_follower', password='12345')
+        self.post = Post.objects.create(author=self.user, text="Просто текст")
+        self.client.get('/')
+    
+    def test_index_cache(self):
+        self.post.text = 'изменённый текст'
+        self.post.save()
+        response = self.client.get('/')
+        self.assertContains(response, "Просто текст")
+
+
 @override_settings(CACHES=settings.TEST_CACHES)
 class FollowTest(TestCase):
     def setUp(self):
@@ -135,21 +154,3 @@ class FollowTest(TestCase):
             {'text': 'пробный коммент'},
             follow=True)
         self.assertContains(response, "Пожалуйста, авторизуйтесь.")
-
-
-class CacheTest(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.user = User.objects.create_user(
-            username='test_user',
-            email='test_user@example.com',
-            password="12345")
-        self.client.login(username='user_follower', password='12345')
-        self.post = Post.objects.create(author=self.user, text="Просто текст")
-        self.client.get('/')
-    
-    def test_index_cache(self):
-        self.post.text = 'изменённый текст'
-        self.post.save()
-        response = self.client.get('/')
-        self.assertContains(response, "Просто текст")
