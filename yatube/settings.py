@@ -49,6 +49,20 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
 ]
 
+CACHES = {
+     'default': {
+         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+         'LOCATION': 'unique-snowflake',
+     },
+ }
+     
+TEST_CACHES = {
+     'default': {
+         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+     }
+ }
+ 
+
 # Идентификатор текущего сайта
 SITE_ID = 1
 
