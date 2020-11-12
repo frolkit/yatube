@@ -38,6 +38,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'users',
     'posts',
+    'api',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +48,8 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.flatpages",
     "sorl.thumbnail",
+    'django_filters',
+    'rest_framework',
 ]
 
 CACHES = {
@@ -55,13 +58,13 @@ CACHES = {
          'LOCATION': 'unique-snowflake',
      },
  }
-     
+
 TEST_CACHES = {
      'default': {
          'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
      }
  }
- 
+
 
 # Идентификатор текущего сайта
 SITE_ID = 1
@@ -129,6 +132,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -155,7 +168,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # Login
 
 LOGIN_URL = "/auth/login/"
-LOGIN_REDIRECT_URL = "index" 
+LOGIN_REDIRECT_URL = "index"
 # LOGOUT_REDIRECT_URL = "index"
 
 
