@@ -92,14 +92,6 @@ class ImageTest(TestCase):
         self.assertContains(response_profile, '<img')
         self.assertContains(response_group, '<img')
 
-    def test_image_format_file(self):
-        with open('media/posts/test.txt', mode='rb') as img:
-            response = self.client.post(
-                "/new/",
-                {'text': "текст", "group": self.group.id, 'image': img},
-                follow=True)
-        self.assertContains(response, 'Upload a valid image.')
-
 
 class CacheTest(TestCase):
     def setUp(self):
