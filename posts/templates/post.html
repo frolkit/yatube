@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %} Запись {{post.id}}{% endblock %}
+
+{% block content %}
+<main role="main" class="container">
+    <div class="row">
+        {% include "profile_info.html" with author=author %}
+
+        <div class="col-md-9">
+            {% include "post_item.html" with post=post %}
+        </div>
+    </div>
+    
+    {% include 'comments.html' with post=post %}
+</main>
+{% endblock %}

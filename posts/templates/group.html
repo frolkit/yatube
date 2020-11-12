@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %} Записи сообщества {{ group.title }} {% endblock %}
+
 {% block content %}
     <h1>{{ group.title }}</h1>
     <p>
@@ -7,10 +8,10 @@
     </p>
     
     <div class="container">
-         <!-- Вывод ленты записей -->
-             {% for post in page %}
-                 {% include "post_item.html" with post=post %}
-             {% endfor %}
+        <!-- Вывод ленты записей -->
+        {% for post in page %}
+            {% include "post_item.html" with post=post %}
+        {% endfor %}
     </div>
 
      <!-- Вывод паджинатора -->
