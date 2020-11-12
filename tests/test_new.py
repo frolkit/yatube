@@ -60,19 +60,17 @@ class TestNewView:
         response = user_client.post(url, data={'text': text, 'group': group.id, 'image': image})
 
         assert response.status_code in (301, 302), \
-            'Проверьте, что со страницы `/new/` после создания поста перенаправляете на главную страницу'
+            'Проверьте, что со страницы `/new/` после создания поста перенаправляете на страницу поста'
         post = Post.objects.filter(author=user, text=text, group=group).first()
         assert post is not None, 'Проверьте, что вы сохранили новый пост при отправки формы на странице `/new/`'
-        assert response.url == '/', 'Проверьте, что перенаправляете на главную страницу `/`'
 
         text = 'Проверка нового поста 2!'
         image = self.get_image_file('image2.png')
         response = user_client.post(url, data={'text': text, 'image': image})
         assert response.status_code in (301, 302), \
-            'Проверьте, что со страницы `/new/` после создания поста перенаправляете на главную страницу'
+            'Проверьте, что со страницы `/new/` после создания поста перенаправляете на страницу поста'
         post = Post.objects.filter(author=user, text=text, group__isnull=True).first()
         assert post is not None, 'Проверьте, что вы сохранили новый пост при отправки формы на странице `/new/`'
-        assert response.url == '/', 'Проверьте, что перенаправляете на главную страницу `/`'
 
         response = user_client.post(url)
         assert response.status_code == 200, \

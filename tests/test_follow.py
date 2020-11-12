@@ -34,31 +34,6 @@ def search_refind(execution, user_code):
 
 class TestFollow:
 
-    def test_follow(self):
-        model_fields = Follow._meta.fields
-
-        user_field = search_field(model_fields, 'user_id')
-        assert user_field is not None, 'Добавьте пользователя, автор который создал событие `user` модели `Follow`'
-        assert type(user_field) == fields.related.ForeignKey, \
-            'Свойство `user` модели `Follow` должно быть ссылкой на другую модель `ForeignKey`'
-        assert user_field.related_model == get_user_model(), \
-            'Свойство `user` модели `Follow` должно быть ссылкой на модель пользователя `User`'
-        assert user_field.remote_field.related_name == 'follower', \
-            'Свойство `user` модели `Follow` должно иметь аттрибут `related_name="follower"`'
-        # assert user_field.on_delete == CASCADE, \
-        #     'Свойство `user` модели `Follow` должно иметь аттрибут `on_delete=models.CASCADE`'
-
-        author_field = search_field(model_fields, 'author_id')
-        assert author_field is not None, 'Добавьте пользователя, автор который создал событие `author` модели `Follow`'
-        assert type(author_field) == fields.related.ForeignKey, \
-            'Свойство `author` модели `Follow` должно быть ссылкой на другую модель `ForeignKey`'
-        assert author_field.related_model == get_user_model(), \
-            'Свойство `author` модели `Follow` должно быть ссылкой на модель пользователя `User`'
-        assert author_field.remote_field.related_name == 'following', \
-            'Свойство `author` модели `Follow` должно иметь аттрибут `related_name="following"`'
-        # assert author_field.on_delete == CASCADE, \
-        #     'Свойство `author` модели `Follow` должно иметь аттрибут `on_delete=models.CASCADE`'
-
     def check_url(self, client, url, str_url):
         try:
             response = client.get(f'{url}')
