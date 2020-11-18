@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    volumes:
+        - ./postgres_data:/var/lib/postgresql/data/
+    env_file:
+        - ./.env
+  web:
+    image: frolkit/yatube
+    restart: always
+    depends_on:
+        - db
+    volumes:
+        - ./static:/code/static/
+        - ./media:/code/media/
+    env_file:
+        - ./.env
+  nginx:
+    image: frolkit/nginx
+    restart: always
+    depends_on:
+        - web
+    volumes:
+        - ./static:/etc/nginx/static/
+        - ./media:/etc/nginx/media/
+    ports:
+        - "80:80"
+
