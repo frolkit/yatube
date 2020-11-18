@@ -17,6 +17,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         pip install -r requirements.txt
+        echo 'SECRET_KEY=!4k!zaekc4^salp*dv3jlv^py-qpiljice4(z&i2q0^m4j^&fa' > yatube/.env
+        echo 'DEBUG=TRUE' >> yatube/.env
     - name: Lint with flake8
       run: flake8 --exclude venv,yatube/settings.py,migrations,tests .
     - name: tests
