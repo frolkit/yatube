@@ -75,7 +75,7 @@ class ImageTest(TestCase):
             password="12345")
         self.client.login(username='test_user', password='12345')
         self.group = Group.objects.create(title='test_title', slug='test_slug')
-        with open('media/posts/test.jpg', mode='rb') as img:
+        with open('posts/tests/test.jpg', mode='rb') as img:
             self.response_post = self.client.post(
                 "/new/",
                 {'text': "текст", "group": self.group.id, 'image': img},
