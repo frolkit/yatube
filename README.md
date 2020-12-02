@@ -1,11 +1,11 @@
 ![yatube](https://github.com/frolkit/yatube/workflows/yatube/badge.svg)
 
-# [yatube](https://yatube.frolkit.gq/)
+# [yatube](https://yatube.frolkit.ru/)
 Первый проект на Django. Простой сайт-блог для публикации постов. Можно оставлять комментарии, подписываться на авторов. Реализовано полное дублирование функционала с помощью API.
 
 Стек: Django, DRF, Python, Docker, PostgreSQL, Nginx, GitHub Actions.
 
-Сайт доступен: https://yatube.frolkit.gq/
+Сайт доступен: https://yatube.frolkit.ru/
 
 ## Инструкция по развёртыванию.
 1. Создайте отдельную папку для проекта. Все дальнейшие действия выполняйте из неё.
